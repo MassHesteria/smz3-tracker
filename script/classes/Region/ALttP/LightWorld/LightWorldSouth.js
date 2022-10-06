@@ -4,7 +4,6 @@ class LightWorldSouth extends LightWorld {
     let regionName = name + subname;
     if (this.buildLocations) {
       this.locations = new LocationCollection([
-        new Location("Chest", "Floodgate Chest", "23.4%", "90.0%", regionName),
         new Location("Chest", "Link's House", "27.4%", "67.9%", regionName),
         new Location("Chest", "Aginah's Cave", "10.0%", "82.6%", regionName, {equipment: "%%bomb%%"}),
         //			new Location("Chest","Mini Moldorm Cave - Far Left","32.6%","93.4%",regionName,{equipment:"%%bomb%%"}),
@@ -22,7 +21,8 @@ class LightWorldSouth extends LightWorld {
         new Location("Standing", "Maze Race", "1.8%", "69.8%", regionName, {equipment: "%%bomb%%/%%boots%%"}),
         new Location("Standing", "Desert Ledge", "1.5%", "91.0%", regionName, {equipment: "%%book%%/%%mirror%%"}),
         new Location("Standing", "Lake Hylia Island", "36.1%", "82.9%", regionName, {equipment: "%%mirror%%"}),
-        new Location("Standing", "Sunken Treasure", "23.4%", "95.2%", regionName),
+        //new Location("Chest", "Floodgate Chest", "23.4%", "90.0%", regionName),
+        new Location("Standing", "Sunken Treasure", "23.4%", "93.2%", regionName),
         new Location("Dig", "Flute Spot", "14.4%", "66.2%", regionName, {equipment: "%%shovel%%"})
       ], this);
     }
@@ -32,7 +32,6 @@ class LightWorldSouth extends LightWorld {
     let region = this;
 
     if (this.buildLocations) {
-      this.locations["Floodgate Chest"].glitchless =
       this.locations["Aginah's Cave"].glitchless = function () {
         return (!isBunny(region.name));
       }
@@ -99,6 +98,7 @@ class LightWorldSouth extends LightWorld {
           return has("flippers");
         }
       }
+      //this.locations["Floodgate Chest"].glitchless =
       this.locations["Sunken Treasure"].glitchless = function () {
         return (!isBunny(region.name));
       }

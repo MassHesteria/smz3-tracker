@@ -14,8 +14,8 @@ class DungeonsHyruleCastleEscape extends Dungeons {
         //			new Location("Chest","Hyrule Castle - Map Chest","24.9%","44.1%",regionName),
         //			new Location("Chest","Hyrule Castle - Zelda's Cell","24.9%","44.1%",regionName),
         new Location("Chest", "Hyrule Castle (3)", "24.9%", "44.1%", regionName),
-        new Location("NPC", "Link's Uncle", "29.8%", "38.0%", regionName),
-        new Location("Chest", "Secret Passage", "29.8%", "43.0%", regionName)
+        new Location("NPC", "Link's Uncle", "29.8%", "41.0%", regionName),
+        //new Location("Chest", "Secret Passage", "29.8%", "43.0%", regionName)
       ], this);
     }
   }
@@ -64,7 +64,7 @@ class DungeonsHyruleCastleEscape extends Dungeons {
       this.locations["Link's Uncle"].glitchless = function () {
         return (!isBunny(region.name));
       }
-      this.locations["Secret Passage"].glitchless = function () {
+      /*this.locations["Secret Passage"].glitchless = function () {
         if (has("state.open")) {
           return (!isBunny(region.name)) && true;
         } else {
@@ -74,7 +74,7 @@ class DungeonsHyruleCastleEscape extends Dungeons {
           passage.isOpened = true;
         }
         return (!isBunny(region.name)) && (canKillEscapeThings());
-      }
+      }*/
     }
 
     this.canEnter.glitchless = function () {
