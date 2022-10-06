@@ -333,3 +333,8 @@ input {
   text-align:       left;
   z-index:          100;
 }
+
+.boss.opened {
+  background-image: none !important;
+  background-color: transparent;
+}
