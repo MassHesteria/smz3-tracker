@@ -145,6 +145,38 @@ input {
   opacity: 0.25;
 }
 
+.ridley.item-metroid3.true {
+  opacity: 0.25;
+}
+
+.ridley.item-metroid3.false {
+  opacity: 1;
+}
+
+.draygon.item-metroid3.true {
+  opacity: 0.25;
+}
+
+.draygon.item-metroid3.false {
+  opacity: 1;
+}
+
+.kraid.item-metroid3.true {
+  opacity: 0.25;
+}
+
+.kraid.item-metroid3.false {
+  opacity: 1;
+}
+
+.phantoon.item-metroid3.true {
+  opacity: 0.25;
+}
+
+.phantoon.item-metroid3.false {
+  opacity: 1;
+}
+
 .swordless {
   opacity:          1;
   background-image: url(../images/misc/swordless.png) !important;
