@@ -198,10 +198,10 @@ input {
 }
 
 .boss {
-  width:           24px;
-  height:          24px;
-  margin-left:     calc(-1 * (24px / 2));
-  margin-top:      calc(-1 * (24px / 2));
+  width:           28px;
+  height:          28px;
+  margin-left:     calc(-1 * (28px / 2));
+  margin-top:      calc(-1 * (28px / 2));
   background:      no-repeat center;
   background-size: 75% 75%;
   position:        absolute;
