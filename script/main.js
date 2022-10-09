@@ -810,7 +810,15 @@ function setOrder(mode) {
 }
 
 function setZoom(target, sender) {
-  document.getElementById(target).style.transform = "scale(" + sender.value / 100 + ")";
+  var e = document.getElementById(target);
+  
+  e.style.transform = "scale(" + sender.value / 100 + ")";
+
+  if (target == "itemdiv") {
+    //TODO: size based on rows and columns
+    e.style.width = 410 * sender.value / 100;
+    e.style.height = 800 * sender.value / 100;
+  }
 
   document.getElementById(target + 'size').innerHTML = (sender.value) + '%';
   var offset = -442 * (100 - sender.value) / 100.0;
