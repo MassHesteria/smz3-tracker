@@ -28,7 +28,7 @@ class LightWorldNorthWest extends LightWorld {
         new Location("Standing", "Lumberjack Tree", "15.1%", "7.6%", regionName, {equipment: "%%agahnim%%%%boots%%"}),
         new Location("Standing", "Graveyard Ledge", "28.1%", "27.0%", regionName, {equipment: "%%mirror%%"}),
         new Location("Standing", "Mushroom", "6.2%", "8.6%", regionName),
-        new Location("NPC", "Weathervane", "7.0%", "46.8%", regionName, {equipment: "%%flute%%"})
+        //new Location("NPC", "Weathervane", "7.0%", "46.8%", regionName, {equipment: "%%flute%%"})
       ], this);
     }
   }
@@ -80,9 +80,9 @@ class LightWorldNorthWest extends LightWorld {
       this.locations["Lost Woods Hideout"].glitchless = function () {
         return (!isBunny(region.name));
       }
-      this.locations["Weathervane"].glitchless = function () {
+      /*this.locations["Weathervane"].glitchless = function () {
         return has("flute") && (!isBunny(region.name));
-      }
+      }*/
     }
 
     this.canEnter.glitchless = function () {
