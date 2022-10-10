@@ -30,11 +30,12 @@ a {
 
 #settingsbutton {
   position:         absolute;
-  right:            0;
-  bottom:           0;
+  right:            40;
+  bottom:           40;
   z-index:          11;
   background-color: #000000;
   color:            #ff0000;
+  transform: scale(3.0);
 }
 
 .tracker {

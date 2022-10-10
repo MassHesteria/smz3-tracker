@@ -38,6 +38,9 @@
   <fieldset id='settings' class='settings'>
     <legend>Settings</legend>
     <fieldset>
+    <button type="button" onclick="localStorage.removeItem('smalttpr');location.reload()" style="float:right;">Restore Defaults</button>
+    </fieldset>
+    <fieldset>
       <legend>Item Tracker</legend>
       <button type="button" onclick="EditMode()" style="float:right;">Edit Mode</button>
       <span style="white-space:nowrap;">Size<input type="range" name='itemdivsize' value='100' max='200' min='1'
