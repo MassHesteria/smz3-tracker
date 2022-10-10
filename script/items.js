@@ -170,7 +170,7 @@ var itemsInit = {
   quake:          false,
   lantern:        false,
   hammer:         false,
-  flute:          0,
+  flute:          false,
   shovel:         false,
   net:            false,
   book:           false,
@@ -184,7 +184,7 @@ var itemsInit = {
   glove:          0,
   flippers:       false,
   moonpearl:      false,
-  mpupgrade:      0,
+  mpupgrade:      false,
   silvers:        false,
   woods:          false,
 

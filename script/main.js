@@ -64,7 +64,7 @@ let defaultBoth = {
   iZoom: 100,
   map: 1,
   mOrien: 1,
-  showLabels: true,
+  showLabels: false,
   editMode: false,
   selected: {}
 };
@@ -178,7 +178,7 @@ let defaultOptions = {
     mapSwords: true,
     itemPlacement: "basic",
     mPos: "Side",
-    mZoom: 80,
+    mZoom: 100,
     showChests: true,
     showPrizes: true,
     showMedals: true
@@ -816,7 +816,7 @@ function setZoom(target, sender) {
 
   if (target == "itemdiv") {
     //TODO: size based on rows and columns
-    e.style.width = 410 * sender.value / 100;
+    e.style.width = 440 * sender.value / 100;
     e.style.height = 800 * sender.value / 100;
   }
 
@@ -1481,6 +1481,18 @@ Vue.component('tracker-cell', {
   ],
   computed: {
     bossNum: function () {
+      if (this.itemName == "kraid") {
+         return "13";
+      }
+      if (this.itemName == "phantoon") {
+         return "14";
+      }
+      if (this.itemName == "draygon") {
+         return "15";
+      }
+      if (this.itemName == "ridley") {
+         return "16";
+      }
       if (this.itemName.indexOf("boss") === -1) {
         return null;
       }
@@ -1542,7 +1554,11 @@ Vue.component('tracker-cell', {
       if (["zelda3"].indexOf(selectedGame) == -1) {
         return null;
       }
-      if (this.bossNum && this.bossNum !== "10" && this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
+      if (this.bossNum == null || this.bossNum == "10" ||
+         this.bossNum == "11" || this.bossNum == "12") {
+         return null;
+      }
+      if (this.trackerData[selectedGame] && this.trackerData[selectedGame].showPrizes) {
         return "url(" + build_img_url("dungeon" + this.trackerData[selectedGame].prizes[this.bossNum]) + ")";
       }
       return null;

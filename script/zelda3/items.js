@@ -37,7 +37,6 @@ defaultItemGrid.zelda3 = [
 	[
 		"sword",
 		"shield",
-		"bomb",
 		"tunic",
 		"silvers",
 		"agahnim"
@@ -85,8 +84,6 @@ defaultItemGrid.zelda3 = [
       "phantoon",
       "draygon",
       "ridley",
-      "etank",
-      "rtank",
    ]
 ];
 
@@ -106,6 +103,7 @@ dungeonchestsInit.zelda3 = {
     12: 0
 };
 
-dungeonbeatenInit.zelda3 = [false, false, false, false, false, false, false, false, false, false, false, false, false];
-prizesInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-medallionsInit.zelda3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+// 13 bosses in Z3 + 4 bosses in SM
+dungeonbeatenInit.zelda3 = Array(13 + 4).fill(false);
+prizesInit.zelda3 = Array(13 + 4).fill(0);
+medallionsInit.zelda3 = Array(13 + 4).fill(0);
