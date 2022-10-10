@@ -1,14 +1,12 @@
 defaultItemGrid.zelda3 = [
 	[
-		"tunic",
 		"bow",
 		"boomerang",
 		"hookshot",
-		"bomb",
+		"mushroom",
 		"powder"
-	],
-	[
-		"sword",
+   ],
+   [
 		"firerod",
 		"icerod",
 		"bombos",
@@ -16,15 +14,13 @@ defaultItemGrid.zelda3 = [
 		"quake"
 	],
 	[
-		"shield",
 		"lantern",
 		"hammer",
 		"flute",
-		"net",
+		"shovel",
 		"book"
 	],
 	[
-		"mushroom",
 		"bottle",
 		"somaria",
 		"byrna",
@@ -32,45 +28,66 @@ defaultItemGrid.zelda3 = [
 		"mirror"
 	],
 	[
-		"shovel",
 		"boots",
 		"glove",
 		"flippers",
 		"moonpearl",
+		"mpupgrade",
+	],
+	[
+		"sword",
+		"shield",
+		"bomb",
+		"tunic",
+		"silvers",
 		"agahnim"
 	],
 	[
-		"silvers",
-		"boss5",
 		"boss1",
+		"boss5",
 		"boss2",
+		"boss9",
 		"boss0",
-		"boss9"
 	],
 	[
-		"mpupgrade",
-		"boss6",
 		"boss8",
+		"boss6",
 		"boss4",
 		"boss7",
 		"boss3"
 	],
-	[
-		"missile",
+   [
+      "charge",
+      "ice",
+      "wave",
+      "spazer",
+      "plasma",
 		"supermissile",
-		"powerbomb",
-		"grappling",
-		"ice",
-		"varia"
-	],
+   ],
 	[
 		"morph",
-		"bombs",
+		"varia",
+		"springball",
 		"hijump",
-		"screw",
+		"space",
+		"powerbomb",
+	],
+	[
+		"bombs",
+		"gravity",
 		"speed",
-		"gravity"
-	]
+		"screw",
+		"grappling",
+		"xray",
+	],
+   [
+      "kraid",
+      "phantoon",
+      "draygon",
+      "ridley",
+      "etank",
+      "rtank",
+   ]
 ];
 
 dungeonchestsInit.zelda3 = {
