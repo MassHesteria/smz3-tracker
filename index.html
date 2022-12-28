@@ -1,229 +1,460 @@
 <html lang="en">
+   <head>
+      <title>SMZ3 Tracker</title>
+      <meta charset="UTF-8" />
+      <link rel="stylesheet" href="css/global.css" type="text/css" />
+      <link
+         href="https://fonts.googleapis.com/css?family=VT323"
+         rel="stylesheet"
+      />
+      <script src="script/loader/lazyload.js"></script>
+      <script src="script/shared.js"></script>
+      <script src="script/includes.js"></script>
+      <script src="script/settings.js"></script>
+   </head>
 
-<head>
-  <title>Item Tracker</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/global.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-  <script src="script/loader/lazyload.js"></script>
-  <script src="script/shared.js"></script>
-  <script src="script/includes.js"></script>
-</head>
-
-<body>
-  <div id="note">
-    <div id="beta" class="zelda3-option zelda3-regions" style="display: none;">
-      BETA: Inverted Logic isn't complete!
-    </div>
-    <span id="version"></span>
-  </div>
-  <div width='100%' id="caption">
-    &nbsp;
-  </div>
-  <div id='layoutdiv'>
-    <div id='itemdiv' class='itemdiv'>
-      <tracker-table v-if="displayVueMap" :item-rows="itemRows" :tracker-data="trackerData"
-        :tracker-options="trackerData"></tracker-table>
-      <table id='itemconfig' class='itemconfig' style='display:none'></table>
-    </div>
-    <div id='mapdiv' class='mapdiv'>
-      <div id='mapoverlay' class='off'>
+   <body>
+      <div id="note">
+         <div
+            id="beta"
+            class="zelda3-option zelda3-regions"
+            style="display: none"
+         ></div>
+         <span id="version"></span>
       </div>
-    </div>
-  </div>
-
-  <!-- Setting panel-->
-
-  <button id='settingsbutton' type='button' onclick='showSettings(this)'>&#128295;</button>
-  <fieldset id='settings' class='settings'>
-    <legend>Settings</legend>
-    <fieldset>
-    <button type="button" onclick="localStorage.removeItem('smalttpr');location.reload()" style="float:right;">Restore Defaults</button>
-    </fieldset>
-    <fieldset>
-      <legend>Item Tracker</legend>
-      <button type="button" onclick="EditMode()" style="float:right;">Edit Mode</button>
-      <span style="white-space:nowrap;">Size<input type="range" name='itemdivsize' value='100' max='200' min='1'
-          onchange="setZoom('itemdiv', this)"><span id='itemdivsize'>100%</span></span><br />
-      <div class="zelda-option">
-        <fieldset>
-          <legend>Dungeon Display</legend>
-          <div class="zelda3-option">
-            <input type="checkbox" name="showchest" id="showchest" checked='checked' onchange="showChest(this)"><label
-              for="showchest">Chests</label>
-            <input type="checkbox" name="showcrystal" id="showcrystal" checked='checked'
-              onchange="showCrystal(this)"><label for="showcrystal">Prizes</label>
-            <input type="checkbox" name="showmedallion" id="showmedallion" checked='checked'
-              onchange="showMedallion(this)"><label for="showmedallion">Medals</label><br />
-          </div>
-          <input type="checkbox" name="showlabel" id="showlabel" checked='checked' onchange="showLabel(this)"><label
-            for="showlabel">Labels</label>
-        </fieldset>
+      <div width="100%" id="caption">&nbsp;</div>
+      <div id="layoutdiv">
+         <div id="itemdiv" class="itemdiv">
+            <tracker-table
+               v-if="displayVueMap"
+               :item-rows="itemRows"
+               :tracker-data="trackerData"
+               :tracker-options="trackerData"
+            ></tracker-table>
+            <table
+               id="itemconfig"
+               class="itemconfig"
+               style="display: none"
+            ></table>
+         </div>
+         <div id="mapdiv" class="mapdiv">
+            <div id="mapoverlay" class="off"></div>
+         </div>
       </div>
-    </fieldset>
-    <fieldset>
-      <legend>Map Tracker</legend>
-      <span style="float:right;">
-        <input type="checkbox" name="showmap" id="showmap" checked='checked' onchange="showTracker('mapdiv', this)">
-        <label for="showmap">Enabled</label><br />
-        <span class="smalttpr-option"><input type="checkbox" id="mapRegions" onchange="showRegions(this)" /><label
-            for="mapRegions">Regions</label><br /></span>
-        <span class="zelda3-option"><input type="checkbox" id="mapWarps" checked='checked'
-            onchange="showWarps(this)" /><label for="mapWarps">Warps</label><br /></span>
-        <input type="checkbox" id="mapPortals" checked='checked' onchange="showPortals(this)" /><label
-          for="mapPortals">Portals</label>
-      </span>
-      <span class="zelda3-option metroid3-accessibility" style="white-space:nowrap;">Size<input type="range"
-          name='mapdivsize' value='100' max='200' min='1' onchange="setZoom('mapdiv', this)"><span
-          id='mapdivsize'>100%</span></span><br />
-      <div class="zelda3-option">
-        Orientation:<br />
-        <input type='radio' name='maporientation' id="mOrien1" value='Horizontal' checked='checked'
-          onclick="setMapOrientation(false)"><label for="mOrien1">Horizontal</label>
-        <input type='radio' name='maporientation' id="mOrien2" value='Verical' onclick="setMapOrientation(true)"><label
-          for="mOrien2">Vertical</label>
-      </div>
-      <div class="metroid-option" style="clear:right;"></div>
-      <fieldset class="zelda3-option">
-        <legend>Position</legend>
-        <input type='radio' name='mapposition' id="mPos1" value='Above' onclick="setOrder(0)"><label
-          for="mPos1">Above</label>
-        <input type='radio' name='mapposition' id="mPos2" value='Below' checked='checked' onclick="setOrder(1)"><label
-          for="mPos2">Below</label>
-        <input type='radio' name='mapposition' id="mPos3" value='Side' onclick="setOrder(2)"><label
-          for="mPos3">Side</label>
-      </fieldset>
-      <fieldset class="zelda3-option">
-        <legend>ALttP Options</legend>
-        <!-- Zelda 3 -->
-        <fieldset>
-          <legend>World State</legend>
-          <input type='radio' name='mapstate' id="mState1" value='standard' onclick='setState("standard")'><label
-            for="mState1">Standard</label>
-          <input type='radio' name='mapstate' id="mState2" value='open' checked='checked'
-            onclick='setState("open")'><label for="mState2">Open</label>
-          <input type='radio' name='mapstate' id="mState3" class="zelda3-regions" value='inverted' checked='checked'
-            onclick='setState("inverted")'><label for="mState3" class="zelda3-regions">Inverted</label><br />
-          <!-- <input type='radio' name='mapstate' id="mState4" class="zelda3-regions" value='retro' checked='checked'
+
+      <!-- Setting panel-->
+
+      <button id="settingsbutton" type="button" onclick="showSettings(this)">
+         &#128295;
+      </button>
+      <fieldset id="settings" class="settings">
+         <legend>Settings</legend>
+         <fieldset>
+            <button
+               type="button"
+               onclick="clearSettings();location.reload()"
+               style="float: right"
+            >
+               Restore Defaults
+            </button>
+         </fieldset>
+         <fieldset>
+            <legend>Item Tracker</legend>
+            <button type="button" onclick="EditMode()" style="float: right">
+               Edit Mode
+            </button>
+            <span style="white-space: nowrap"
+               >Size<input
+                  type="range"
+                  name="itemdivsize"
+                  value="100"
+                  max="200"
+                  min="1"
+                  onchange="setZoom('itemdiv', this)"
+               /><span id="itemdivsize">100%</span></span
+            ><br />
+            <div class="zelda-option">
+               <fieldset>
+                  <legend>Dungeon Display</legend>
+                  <div class="zelda3-option">
+                     <input
+                        type="checkbox"
+                        name="showchest"
+                        id="showchest"
+                        checked="checked"
+                        onchange="showChest(this)"
+                     /><label for="showchest">Chests</label>
+                     <input
+                        type="checkbox"
+                        name="showcrystal"
+                        id="showcrystal"
+                        checked="checked"
+                        onchange="showCrystal(this)"
+                     /><label for="showcrystal">Prizes</label>
+                     <input
+                        type="checkbox"
+                        name="showmedallion"
+                        id="showmedallion"
+                        checked="checked"
+                        onchange="showMedallion(this)"
+                     /><label for="showmedallion">Medals</label><br />
+                  </div>
+                  <input
+                     type="checkbox"
+                     name="showlabel"
+                     id="showlabel"
+                     checked="checked"
+                     onchange="showLabel(this)"
+                  /><label for="showlabel">Labels</label>
+               </fieldset>
+            </div>
+         </fieldset>
+         <fieldset>
+            <legend>Map Tracker</legend>
+            <span style="float: right">
+               <input
+                  type="checkbox"
+                  name="showmap"
+                  id="showmap"
+                  checked="checked"
+                  onchange="showTracker('mapdiv', this)"
+               />
+               <label for="showmap">Enabled</label><br />
+               <span class="smalttpr-option"
+                  ><input
+                     type="checkbox"
+                     id="mapRegions"
+                     onchange="showRegions(this)" /><label for="mapRegions"
+                     >Regions</label
+                  ><br
+               /></span>
+               <span class="zelda3-option"
+                  ><input
+                     type="checkbox"
+                     id="mapWarps"
+                     checked="checked"
+                     onchange="showWarps(this)" /><label for="mapWarps"
+                     >Warps</label
+                  ><br
+               /></span>
+               <input
+                  type="checkbox"
+                  id="mapPortals"
+                  checked="checked"
+                  onchange="showPortals(this)"
+               /><label for="mapPortals">Portals</label>
+            </span>
+            <span
+               class="zelda3-option metroid3-accessibility"
+               style="white-space: nowrap"
+               >Size<input
+                  type="range"
+                  name="mapdivsize"
+                  value="100"
+                  max="200"
+                  min="1"
+                  onchange="setZoom('mapdiv', this)"
+               /><span id="mapdivsize">100%</span></span
+            ><br />
+            <div class="zelda3-option">
+               Orientation:<br />
+               <input
+                  type="radio"
+                  name="maporientation"
+                  id="mOrien1"
+                  value="Horizontal"
+                  checked="checked"
+                  onclick="setMapOrientation(false)"
+               /><label for="mOrien1">Horizontal</label>
+               <input
+                  type="radio"
+                  name="maporientation"
+                  id="mOrien2"
+                  value="Verical"
+                  onclick="setMapOrientation(true)"
+               /><label for="mOrien2">Vertical</label>
+            </div>
+            <div class="metroid-option" style="clear: right"></div>
+            <fieldset class="zelda3-option">
+               <legend>Position</legend>
+               <input
+                  type="radio"
+                  name="mapposition"
+                  id="mPos1"
+                  value="Above"
+                  onclick="setOrder(0)"
+               /><label for="mPos1">Above</label>
+               <input
+                  type="radio"
+                  name="mapposition"
+                  id="mPos2"
+                  value="Below"
+                  checked="checked"
+                  onclick="setOrder(1)"
+               /><label for="mPos2">Below</label>
+               <input
+                  type="radio"
+                  name="mapposition"
+                  id="mPos3"
+                  value="Side"
+                  onclick="setOrder(2)"
+               /><label for="mPos3">Side</label>
+            </fieldset>
+            <fieldset class="zelda3-option">
+               <legend>ALttP Options</legend>
+               <!-- Zelda 3 -->
+               <fieldset>
+                  <legend>World State</legend>
+                  <input
+                     type="radio"
+                     name="mapstate"
+                     id="mState1"
+                     value="standard"
+                     onclick='setState("standard")'
+                  /><label for="mState1">Standard</label>
+                  <input
+                     type="radio"
+                     name="mapstate"
+                     id="mState2"
+                     value="open"
+                     checked="checked"
+                     onclick='setState("open")'
+                  /><label for="mState2">Open</label>
+                  <input
+                     type="radio"
+                     name="mapstate"
+                     id="mState3"
+                     class="zelda3-regions"
+                     value="inverted"
+                     checked="checked"
+                     onclick='setState("inverted")'
+                  /><label for="mState3" class="zelda3-regions">Inverted</label
+                  ><br />
+                  <!-- <input type='radio' name='mapstate' id="mState4" class="zelda3-regions" value='retro' checked='checked'
             onclick='setState("retro")'><label for="mState4" class="zelda3-regions">Retro</label><br />-->
-          <span class="zelda3-regions"><input type='checkbox' name='swordless' id="swordless"
-              onchange='setSwords(this)'><label for="swordless">Swordless</label></span>
-          <span class="zelda3-regions"><input type='checkbox' name='ohko' id="ohko" onchange='setOHKO(this)'><label
-              for="ohko">OHKO</label></span>
-        </fieldset>
-        <fieldset>
-          <legend>Item Placement</legend>
-          <span class="zelda3-regions"><input type='radio' name='itemplacement' id="z3itemPlacement1" value='basic'
-              checked='checked' onclick='setItemPlacement("basic")'><label for="z3itemPlacement1">Basic</label></span>
-          <span class="zelda3-regions"><input type='radio' name='itemplacement' id="z3itemPlacement2" value='advanced'
-              onclick='setItemPlacement("advanced")'><label for="z3itemPlacement2">Advanced</label></span>
-        </fieldset>
-        <fieldset>
-          <legend>Glitch Logic</legend>
-          <span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic1" value='glitchless'
-              onclick='setLogic("glitchless")'><label for="z3mLogic1">No Glitches</label></span>
-          <span class="zelda3-regions"><input type='radio' name='maplogic' id="z3mLogic2" value='minorGlitches'
-              checked='checked' onclick='setLogic("minorGlitches")'><label for="z3mLogic2">Minor</label></span>
-          <span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic3" value='owGlitches'
-              onclick='setLogic("owGlitches")'><label for="z3mLogic3">Overworld</label></span><br />
-          <span class="zelda3-oldstyle"><input type='radio' name='maplogic' id="z3mLogic4" value='majorGlitches'
-              onclick='setLogic("majorGlitches")'><label for="z3mLogic4">Major</label></span>
-        </fieldset>
+                  <span class="zelda3-regions"
+                     ><input
+                        type="checkbox"
+                        name="swordless"
+                        id="swordless"
+                        onchange="setSwords(this)"
+                     /><label for="swordless">Swordless</label></span
+                  >
+                  <span class="zelda3-regions"
+                     ><input
+                        type="checkbox"
+                        name="ohko"
+                        id="ohko"
+                        onchange="setOHKO(this)"
+                     /><label for="ohko">OHKO</label></span
+                  >
+               </fieldset>
+               <fieldset>
+                  <legend>Item Placement</legend>
+                  <span class="zelda3-regions"
+                     ><input
+                        type="radio"
+                        name="itemplacement"
+                        id="z3itemPlacement1"
+                        value="basic"
+                        checked="checked"
+                        onclick='setItemPlacement("basic")'
+                     /><label for="z3itemPlacement1">Basic</label></span
+                  >
+                  <span class="zelda3-regions"
+                     ><input
+                        type="radio"
+                        name="itemplacement"
+                        id="z3itemPlacement2"
+                        value="advanced"
+                        onclick='setItemPlacement("advanced")'
+                     /><label for="z3itemPlacement2">Advanced</label></span
+                  >
+               </fieldset>
+               <fieldset>
+                  <legend>Glitch Logic</legend>
+                  <span class="zelda3-oldstyle"
+                     ><input
+                        type="radio"
+                        name="maplogic"
+                        id="z3mLogic1"
+                        value="glitchless"
+                        onclick='setLogic("glitchless")'
+                     /><label for="z3mLogic1">No Glitches</label></span
+                  >
+                  <span class="zelda3-regions"
+                     ><input
+                        type="radio"
+                        name="maplogic"
+                        id="z3mLogic2"
+                        value="minorGlitches"
+                        checked="checked"
+                        onclick='setLogic("minorGlitches")'
+                     /><label for="z3mLogic2">Minor</label></span
+                  >
+                  <span class="zelda3-oldstyle"
+                     ><input
+                        type="radio"
+                        name="maplogic"
+                        id="z3mLogic3"
+                        value="owGlitches"
+                        onclick='setLogic("owGlitches")'
+                     /><label for="z3mLogic3">Overworld</label></span
+                  ><br />
+                  <span class="zelda3-oldstyle"
+                     ><input
+                        type="radio"
+                        name="maplogic"
+                        id="z3mLogic4"
+                        value="majorGlitches"
+                        onclick='setLogic("majorGlitches")'
+                     /><label for="z3mLogic4">Major</label></span
+                  >
+               </fieldset>
+            </fieldset>
+            <fieldset class="metroid-option">
+               <legend class="metroid3-option">Super Metroid Options</legend>
+               <!-- Metroid 3 -->
+               <fieldset class="metroid3-option">
+                  <legend>Skill Logic</legend>
+                  <input
+                     type="radio"
+                     name="maplogic"
+                     id="m3mLogic1"
+                     value="normalLogic"
+                     checked="checked"
+                     onclick='setLogic("normalLogic")'
+                  /><label for="m3mLogic1">Normal</label>
+                  <input
+                     type="radio"
+                     name="maplogic"
+                     id="m3mLogic2"
+                     value="hardLogic"
+                     onclick='setLogic("hardLogic")'
+                  /><label for="m3mLogic2">Hard</label>
+               </fieldset>
+               <fieldset>
+                  <legend>Item Skin</legend>
+                  <!-- Metroid 3 -->
+                  <input
+                     type="radio"
+                     name="chestskin"
+                     id="chestskin1"
+                     value="lights"
+                     checked="checked"
+                     onclick='setSMChestSkin("icons-itemball-lights")'
+                  /><label for="chestskin1">Lights</label>
+                  <input
+                     type="radio"
+                     name="chestskin"
+                     id="chestskin2"
+                     value="nolights"
+                     onclick='setSMChestSkin("icons-itemball-nolights")'
+                  /><label for="chestskin2">No Lights</label><br />
+                  <input
+                     type="radio"
+                     name="chestskin"
+                     id="chestskin3"
+                     value="nothing"
+                     onclick='setSMChestSkin("icons-nothing")'
+                  /><label for="chestskin3">Nothing</label>
+               </fieldset>
+            </fieldset>
+            <fieldset>
+               <legend>Chest Legend</legend>
+               <table
+                  border="0"
+                  cellspacing="0"
+                  id="legend"
+                  class="legend"
+                  style="width: 100%"
+               >
+                  <tr>
+                     <th class="available">Available</th>
+                     <th class="glitchavailable zelda3-option">
+                        Glitch Available
+                     </th>
+                  </tr>
+                  <tr>
+                     <th class="possible zelda3-option">
+                        Possible<br />Viewable
+                     </th>
+                     <th class="glitchpossible zelda3-option">
+                        Glitch Possible<br />Glitch Viewable
+                     </th>
+                  </tr>
+                  <tr>
+                     <th class="agahnim zelda3-option">Agahnim Defeated</th>
+                     <th class="glitchagahnim zelda3-option">Glitch Agahnim</th>
+                  </tr>
+                  <tr>
+                     <th class="unavailable">Unavailable</th>
+                     <th class="opened zelda3-option">Opened</th>
+                  </tr>
+                  <tr class="metroid3-option">
+                     <th class="opened">Opened</th>
+                  </tr>
+               </table>
+            </fieldset>
+            <fieldset class="zelda3-option zelda3-regions">
+               <legend>Dungeon Legend</legend>
+               <table
+                  border="0"
+                  cellspacing="0"
+                  id="legend"
+                  class="legend"
+                  style="width: 100%"
+               >
+                  <tr>
+                     <th class="partial zelda3-option">Partial</th>
+                     <th class="glitchpartial zelda3-option">Glitch Partial</th>
+                  </tr>
+               </table>
+            </fieldset>
+         </fieldset>
+         <footer id="credits">
+            SMZ3 Rando Tracker -
+            <a href="https://github.com/masshesteria/">masshesteria</a>
+            (major credits:
+            <a href="https://github.com/miketrethewey/">miketrethewey</a>,
+            <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>,
+            <a href="https://twitter.com/pickfifteen">pickfifteen</a>,
+            <a href="https://www.twitch.tv/marcmagus">marcmagus</a>,
+            <a href="https://www.twitch.tv/testrunner">testrunner</a>,
+            <a href="https://www.twitch.tv/crossproduct">crossproduct</a
+            ><br />map by zeric)
+         </footer>
       </fieldset>
-      <fieldset class="metroid-option">
-        <legend class="metroid3-option">Super Metroid Options</legend>
-        <!-- Metroid 3 -->
-        <fieldset class="metroid3-option">
-          <legend>Skill Logic</legend>
-          <input type='radio' name='maplogic' id="m3mLogic1" value='normalLogic' checked="checked"
-            onclick='setLogic("normalLogic")'><label for="m3mLogic1">Normal</label>
-          <input type='radio' name='maplogic' id="m3mLogic2" value='hardLogic'
-            onclick='setLogic("hardLogic")'><label for="m3mLogic2">Hard</label>
-        </fieldset>
-        <fieldset>
-          <legend>Item Skin</legend>
-          <!-- Metroid 3 -->
-          <input type='radio' name='chestskin' id="chestskin1" value='lights' checked='checked'
-            onclick='setSMChestSkin("icons-itemball-lights")'><label for="chestskin1">Lights</label>
-          <input type='radio' name='chestskin' id="chestskin2" value='nolights'
-            onclick='setSMChestSkin("icons-itemball-nolights")'><label for="chestskin2">No Lights</label><br />
-          <input type='radio' name='chestskin' id="chestskin3" value='nothing'
-            onclick='setSMChestSkin("icons-nothing")'><label for="chestskin3">Nothing</label>
-        </fieldset>
-      </fieldset>
-      <fieldset>
-        <legend>Chest Legend</legend>
-        <table border="0" cellspacing="0" id="legend" class="legend" style="width:100%;">
-          <tr>
-            <th class="available">Available</th>
-            <th class="glitchavailable zelda3-option">Glitch Available</th>
-          </tr>
-          <tr>
-            <th class="possible zelda3-option">Possible<br />Viewable</th>
-            <th class="glitchpossible zelda3-option">Glitch Possible<br />Glitch Viewable</th>
-          </tr>
-          <tr>
-            <th class="agahnim zelda3-option">Agahnim Defeated</th>
-            <th class="glitchagahnim zelda3-option">Glitch Agahnim</th>
-          </tr>
-          <tr>
-            <th class="unavailable">Unavailable</th>
-            <th class="opened zelda3-option">Opened</th>
-          </tr>
-          <tr class="metroid3-option">
-            <th class="opened">Opened</th>
-          </tr>
-        </table>
-      </fieldset>
-      <fieldset class="zelda3-option zelda3-regions">
-        <legend>Dungeon Legend</legend>
-        <table border="0" cellspacing="0" id="legend" class="legend" style="width:100%;">
-          <tr>
-            <th class="partial zelda3-option">Partial</th>
-            <th class="glitchpartial zelda3-option">Glitch Partial</th>
-          </tr>
-        </table>
-      </fieldset>
-    </fieldset>
-    <footer id="credits">
-      SMALttP Rando Tracker - <a href="https://github.com/miketrethewey/">miketrethewey</a><br />
-      (major credits: <a href="https://www.twitch.tv/hyphen_ated">hyphen</a>, <a
-        href="https://twitter.com/pickfifteen">pickfifteen</a>, <a href="https://www.twitch.tv/marcmagus">marcmagus</a>,
-      <a href="https://www.twitch.tv/testrunner">testrunner</a>, <a
-        href="https://www.twitch.tv/crossproduct">crossproduct</a><br />map by zeric)
-    </footer>
-  </fieldset>
 
-  <script type="text/x-template" id="tracker-table">
-    <div class="vueTrackerTable" :style="{ backgroundColor: 'black'}">
-      <div v-for="(itemRow, itemRowIndex) in itemRows" :key="itemRowIndex">
-        <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
-        <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
-          :column-index="itemColumnIndex" :row-index="itemRowIndex"
-          :tracker-data="trackerData" :tracker-options="trackerData" :key="itemColumnIndex + '-' + itemRowIndex">
-        </tracker-cell>
-        <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="removeItem(itemRowIndex)"
-          :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
-        <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addItem(itemRowIndex)"
-          :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
-      </div>
-      <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addRow">Add row</button>
-    </div>
-  </script>
+      <script type="text/x-template" id="tracker-table">
+         <div class="vueTrackerTable" :style="{ backgroundColor: 'black'}">
+           <div v-for="(itemRow, itemRowIndex) in itemRows" :key="itemRowIndex">
+             <div :style="{ width: (maxRowLength - itemRow.length) * 32 + 'px', display:'inline-block' }" class="rowSpacer"></div>
+             <tracker-cell v-for="(item, itemColumnIndex) in itemRow" :itemName="item" :itemValue="itemFor(item)"
+               :column-index="itemColumnIndex" :row-index="itemRowIndex"
+               :tracker-data="trackerData" :tracker-options="trackerData" :key="itemColumnIndex + '-' + itemRowIndex">
+             </tracker-cell>
+             <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="removeItem(itemRowIndex)"
+               :style="{backgroundColor: 'red', color: 'white', verticalAlign: 'top', marginTop: '20px'}">-</button>
+             <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addItem(itemRowIndex)"
+               :style="{backgroundColor: 'green', color: 'white', verticalAlign: 'top', marginTop: '20px'}">+</button>
+           </div>
+           <button v-if="trackerData && trackerData[selectedGame].editMode" @click.prevent.stop="addRow">Add row</button>
+         </div>
+      </script>
 
-  <script type="text/x-template" id="tracker-cell">
-    <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative', backgroundSize: '64px 64px', imageRendering: 'pixelated' }"
-      :title="itemLabel"
-      :class="[tokenize(itemLabel), itemClass, isActive ? 'true':'false', ohkoClass, swordlessClass]" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
-      <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
-      <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
-      <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :class="'chestImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage, backgroundSize: '32px 32px' }"></span>
-      <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :class="'prizeImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage, backgroundSize: '32px 32px' }"></span>
-      <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :class="'medallionImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage, backgroundSize: '32px 32px' }"></span>
-      <span v-if="isTunic" :class="'ohko'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px' }"></span>
-      <span v-if="isTunic" :class="'inverted'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '0', left: '0' }"></span>
-    </div>
-  </script>
-</body>
-
+      <script type="text/x-template" id="tracker-cell">
+         <div :style="{ height: '64px', width: '64px', display:'inline-block', backgroundImage: backgroundImage, position: 'relative', backgroundSize: '64px 64px', imageRendering: 'pixelated' }"
+           :title="itemLabel"
+           :class="[tokenize(itemLabel), itemClass, isActive ? 'true':'false', ohkoClass, swordlessClass]" @click.stop="clickCellForward" @contextmenu.prevent.stop="clickCellBack">
+           <span v-if="dungeonLabel" class="corner" :style="{ display: 'block', position: 'absolute'}">{{ dungeonLabel }}</span>
+           <span v-if="textCounter !== null" class="textCounter">{{ textCounter }}</span>
+           <span v-if="chestImage" @click.stop="clickChestBack" @contextmenu.prevent.stop="clickChestForward" :class="'chestImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', backgroundImage: chestImage, backgroundSize: '32px 32px' }"></span>
+           <span v-if="prizeImage" @click.stop="clickPrizeForward" @contextmenu.prevent.stop="clickPrizeBack" :class="'prizeImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px', backgroundImage: prizeImage, backgroundSize: '32px 32px' }"></span>
+           <span v-if="medallionImage" @click.stop="clickMedallionForward" @contextmenu.prevent.stop="clickMedallionBack" :class="'medallionImage'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', left: '32px', backgroundImage: medallionImage, backgroundSize: '32px 32px' }"></span>
+           <span v-if="isTunic" :class="'ohko'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '32px', left: '32px' }"></span>
+           <span v-if="isTunic" :class="'inverted'" :style="{ display: 'block', position: 'absolute', height: '32px', width: '32px', top: '0', left: '0' }"></span>
+         </div>
+      </script>
+   </body>
 </html>

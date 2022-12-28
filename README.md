@@ -1,12 +1,13 @@
-# smalttpr-tracker
+**smz3-tracker** is a web-based utility for tracking items and locations within the [Super Metroid / A Link to the Past Crossover Randomizer](https://samus.link).
 
-* Known Bugs
-  * Doesn't keep inventory if you switch views
-    * To counteract this, open one tab for each game **then** start modifying settings
-    * Reloading either page will clear your inventory
+This tracker is hosted at [https://masshesteria.github.io/smz3-tracker](https://masshesteria.github.io/smz3-tracker) but can also be run locally simply by downloading the source code and opening the `index.htm` file in a browser.
 
-This is an item tracker for LTTP: Randomizer. Use it at http://smalttpr.mymm1.com/tracker (hosted on my site, usually running a beta version) or https://miketrethewey.github.io/smalttpr-tracker/ (hosted here on Github, usually running a stable version)
+## History
 
-This is a fork of the tracker at ```https://lttp-tracker.firebaseapp.com/``` and of Hyphen-ated's fork at https://github.com/hyphen-ated/lttp-tracker/
+This is a fork of [http://github.com/miketrethewey/smalttpr-tracker/](http://github.com/miketrethewey/smalttpr-tracker/) which I started customizing for use at SG Live 2022. That project was a fork of a fork of [https://github.com/TestRunnerSRL/lttp-tracker](https://github.com/TestRunnerSRL/lttp-tracker) which appears to be a customized version of [https://github.com/crossproduct42/alttprandohelper](https://github.com/crossproduct42/alttprandohelper) written by [crossproduct](https://twitch.tv/crossproduct).
 
-If you want to modify that version, you need to re-host it yourself on firebase, which is a big hassle. This version can easily be tweaked and changed locally. This meant taking out the networking features that let you do things like have a stream viewer run your tracker for you.
+## Known Bugs
+
+-  Doesn't keep inventory if you switch views
+   -  To counteract this, open one tab for each game **then** start modifying settings
+   -  Reloading either page will clear your inventory

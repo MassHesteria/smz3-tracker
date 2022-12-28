@@ -1,81 +1,105 @@
 <html>
-<head>
-<title>SMALttPR Tracker FAQ</title>
-<link rel="stylesheet" type="text/css" href="css/global.css" />
-<style type="text/css">
-body {
-  margin: 0;
-}
-button {
-  background-color: #000000;
-  border: 1px solid #ffffff;
-  color: #ffffff;
-}
-#selectGame a.bare {
-  text-decoration: none;
-}
-.findrom {
-  float: right;
-}
-.findrom img {
-  height:          100px;
-  image-rendering: pixelated;
-}
-</style>
-<script>
-function clearStorage() {
-  localStorage.removeItem("smalttpr");
-}
-</script>
-</head>
-<body>
-<div class="findrom">
-  <a href="https://itemrando.supermetroid.run/"><img src="http://alttp.mymm1.com/game/findrom-metroid3.png" /></a><a href="http://alttpr.com/"><img src="http://alttp.mymm1.com/game/findrom.png" /></a>
-</div>
+   <head>
+      <title>SMZ3 Tracker FAQ</title>
+      <link rel="stylesheet" type="text/css" href="css/global.css" />
+      <style type="text/css">
+         body {
+            margin: 0;
+            color: #f0f0f0;
+         }
+         button {
+            background-color: #000000;
+            border: 1px solid #f0f0f0;
+            color: #f0f0f0;
+         }
+         a.bare {
+            text-decoration: none;
+         }
+         .findrom {
+            float: right;
+         }
+         .findrom img {
+            height: 300px;
+            image-rendering: pixelated;
+         }
+         h2 {
+            color: rgb(42, 100, 42);
+         }
+      </style>
+      <script src="script/settings.js"></script>
+   </head>
+   <body>
+      <div class="findrom">
+         <img src="http://alttp.mymm1.com/game/findrom-metroid3.png" />
+         <img src="http://alttp.mymm1.com/game/findrom.png" />
+      </div>
 
-<div id="selectGame">
-  [
-  SMALttPR<a href="index.html?game=zelda3" class="bare">*</a> |
-  <a href="faq.html">FAQ</a> |
-  <a href="https://github.com/miketrethewey/smalttpr-tracker/">GitHub</a>
-  ]
-</div>
+      <div id="selectGame">
+         [ <a href="index.html?game=zelda3">SMZ3 Tracker</a> |
+         <a href="faq.html">FAQ</a> |
+         <a href="https://github.com/masshesteria/smz3-tracker/">GitHub</a>
+         ]
+      </div>
 
-<h1>SMALttPR Tracker FAQ</h1>
+      <h1>SMZ3 Tracker FAQ</h1>
 
-<h2>Why does it clear everything when I reload the page or open a new one?</h2>
-<p>That's just how it's written right now. The <a href="http://github.com/miketrethewey/smalttpr-tracker">code is public</a>. If you can figure out how to stop it from doing that, please let me know.</p>
+      <h2>What games does it support?</h2>
+      <dl>
+         <div>
+            <a href="http://samus.link/"
+               >Super Metroid / A Link to the Past Crossover Randomizer</a
+            >
+            <br /><br />
+            This specific tracker is geared more towards tracking locations in A
+            Link to the Past than Super Metroid. This is because my main game is
+            Super Metroid, and I don't actually look at the Super Metroid map
+            while running seeds.
+         </div>
+      </dl>
+      <h2>Why does everything clear when reloading the page?</h2>
+      <p>
+         That's just how it's written right now. Hope to have that updated soon.
+      </p>
 
-<h2>Why is it broken?</h2>
-<dl>
-  <dt><a href="https://kb.iu.edu/d/ahic">Clear your cache</a>
-    <dd>If I've pushed an update to the scripts, there are over 50 individual files and if any of the ones that you're loading from cache are out of date, it won't work as expected.</dd>
-  </dt>
-  <dt>Clear your <code>localstorage</code>
-    <dd>If you've got stale data in your <code>localstorage</code>, it can be throwing it off. <button onclick="clearStorage()">This button</button> will try to clear it for SMALttPR.</dd>
-  </dt>
-</dl>
+      <h2>Why is it broken?</h2>
+      <dl>
+         <div>
+            <a href="https://kb.iu.edu/d/ahic">Clear your cache</a>
+            <dd>
+               If I've pushed an update to the scripts, there are over 50
+               individual files and if any of the ones that you're loading from
+               cache are out of date, it won't work as expected.
+            </dd>
+         </div>
+         <div>
+            <br />
+            Clear your <code>localstorage</code>
+            <dd>
+               If you've got stale data in your <code>localstorage</code>, it
+               can be throwing it off.
+               <button onclick="clearSettings()">This button</button> will try
+               to clear it. You can also click the Restore Defaults button on
+               the settings menu of the main page.
+            </dd>
+         </div>
+      </dl>
 
-<h2>I found a bug that the above didn't fix!</h2>
-<h3>It's a logic bug!</h3>
-<p>Make sure that the version of my app (found in the upper-right hand corner) matches the version of the game you're playing (usually found on the generator website's page). If it doesn't, the generator's probably been updated since I released this version of the site.<br />
-Check to see if the GitHub page for my tracker has a <a href="https://github.com/miketrethewey/smalttpr-tracker/branches">branch</a> being prepared for the new version. If not, please contact me either on GitHub or Discord.</p>
-<h3>It's just busted!</h3>
-<p>Please contact me either on GitHub or on Discord.</p>
-
-<h2>What games does it support?</h2>
-<dl>
-  <dt><a href="http://smalttp.speedga.me/">SMALttPR</a>
-    <dd>Super Metroid/A Link to the Past Randomizer</dd>
-  </dt>
-</dl>
-<h2>Can it support the individual games from the above Randomizers?</h2>
-<p>Yes.</p>
-
-<h2>Make it support [insert game here]!</h2>
-<p>Sure. If you write the definition files. The code is kind of scary.</p>
-
-<h2>This thing sucks!</h2>
-<p>Write your own.</p>
-</body>
+      <h2>I found a bug that the above didn't fix!</h2>
+      <h3>It's a logic bug!</h3>
+      <p>
+         Make sure you are running the most up-to-date version of the tracker.
+         You can always find the latest version hosted at
+         <a href="https://masshesteria.github.io/smz3-tracker/">
+            https://masshesteria.github.io/smz3-tracker
+         </a>
+         <br />
+         <br />
+         You can also download the latest version at
+         <a href="https://github.com/masshesteria/smz3-tracker"
+            >https://github.com/masshesteria/smz3-tracker</a
+         >
+      </p>
+      <h3>It's just busted!</h3>
+      <p>Please contact me either on GitHub or on Discord.</p>
+   </body>
 </html>
